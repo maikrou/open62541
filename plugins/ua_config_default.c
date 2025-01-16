@@ -444,7 +444,7 @@ setDefaultConfig(UA_ServerConfig *conf, UA_UInt16 portNumber) {
     conf->maxRejectedListSize = 0;
 #endif
 
-    /* Certificate Verification that accepts every certificate. Can be
+    /* Certificate Verification that accepts every or no certificates. Can be
      * overwritten when the policy is specialized. */
     if(conf->secureChannelPKI.clear)
         conf->secureChannelPKI.clear(&conf->secureChannelPKI);

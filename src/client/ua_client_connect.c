@@ -883,7 +883,10 @@ activateSessionAsync(UA_Client *client) {
         anonToken.policyId = utp->policyId;
     }
     if(retval != UA_STATUSCODE_GOOD)
+    {
+        UA_ActivateSessionRequest_clear(&request);
         return retval;
+    }
 
     UA_SecurityPolicy *utsp = NULL;
     UA_SecureChannel *channel = &client->channel;

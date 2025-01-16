@@ -516,12 +516,10 @@ UA_Server_getConditionBranchNodeId(UA_Server *server, const UA_ByteString *event
                     res = UA_NodeId_copy(&cond->conditionId, outConditionBranchNodeId);
                     UA_UNLOCK(&server->serviceMutex);
                     return res;
-                } else {
-                    res = UA_NodeId_copy(&branch->conditionBranchId, outConditionBranchNodeId);
-                    UA_UNLOCK(&server->serviceMutex);
-                    return res;
                 }
-                goto out;
+                res = UA_NodeId_copy(&branch->conditionBranchId, outConditionBranchNodeId);
+                UA_UNLOCK(&server->serviceMutex);
+                return res;
             }
         }
     }
@@ -1700,11 +1698,13 @@ setRefreshMethodEventFields(UA_Server *server, const UA_NodeId *refreshEventNodI
 
     /* Set EventId */
     retval = generateEventId(&eventId);
-    CONDITION_ASSERT_RETURN_RETVAL(retval, "Generating EventId failed",);
+    CONDITION_ASSERT_RETURN_RETVAL(retval, "Generating EventId failed",
+                                   UA_ByteString_clear(&eventId););
 
     UA_Variant_setScalar(&value, &eventId, &UA_TYPES[UA_TYPES_BYTESTRING]);
     retval = setConditionField(server, *refreshEventNodId, &value, fieldEventId);
-    CONDITION_ASSERT_RETURN_RETVAL(retval, "Set RefreshEvent EventId failed",);
+    CONDITION_ASSERT_RETURN_RETVAL(retval, "Set RefreshEvent EventId failed",
+                                   UA_ByteString_clear(&eventId););
 
     UA_ByteString_clear(&eventId);
 

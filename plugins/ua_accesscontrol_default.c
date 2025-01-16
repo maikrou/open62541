@@ -138,8 +138,8 @@ activateSession_default(UA_Server *server, UA_AccessControl *ac,
         if(!config->sessionPKI.verifyCertificate)
             return UA_STATUSCODE_BADIDENTITYTOKENINVALID;
 
-       UA_StatusCode res = config->sessionPKI.
-            verifyCertificate(&config->sessionPKI, &userToken->certificateData);
+        UA_StatusCode res = config->sessionPKI.verifyCertificate(
+            &config->sessionPKI, &userToken->certificateData);
         if(res != UA_STATUSCODE_GOOD)
             return UA_STATUSCODE_BADIDENTITYTOKENREJECTED;
     } else {

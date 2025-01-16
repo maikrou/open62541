@@ -575,6 +575,11 @@ ENCODE_JSON(Guid) {
 
 static u8
 printNumber(i32 n, char *pos, u8 min_digits) {
+    if(min_digits == 0)
+    {
+        return 0;
+    }
+
     char digits[10];
     u8 len = 0;
     /* Handle negative values */

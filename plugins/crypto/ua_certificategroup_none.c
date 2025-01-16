@@ -10,9 +10,13 @@
 static UA_StatusCode
 verifyCertificateAllowAll(UA_CertificateGroup *certGroup,
                           const UA_ByteString *certificate) {
+#ifdef UA_ENABLE_ENCRYPTION
     UA_LOG_WARNING(certGroup->logging, UA_LOGCATEGORY_USERLAND,
                    "No certificate store configured. Accepting the certificate.");
     return UA_STATUSCODE_GOOD;
+#else
+    return UA_STATUSCODE_BADIDENTITYTOKENINVALID;
+#endif
 }
 
 static void
