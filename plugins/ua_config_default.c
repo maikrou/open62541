@@ -668,7 +668,7 @@ UA_ServerConfig_setMinimalCustomBuffer(UA_ServerConfig *config, UA_UInt16 portNu
     }
 
     /* Initialize the Access Control plugin */
-    retval = UA_AccessControl_default(config, true, NULL, 0, NULL);
+    retval = UA_AccessControl_default(config, true, NULL, 0, NULL, false);
     if(retval != UA_STATUSCODE_GOOD) {
         UA_ServerConfig_clear(config);
         return retval;
@@ -1108,7 +1108,7 @@ UA_ServerConfig_setDefaultWithSecurityPolicies(UA_ServerConfig *conf,
     retval = UA_ServerConfig_addAllSecurityPolicies(conf, certificate, privateKey);
 
     if(retval == UA_STATUSCODE_GOOD) {
-        retval = UA_AccessControl_default(conf, true, NULL, 0, NULL);
+        retval = UA_AccessControl_default(conf, true, NULL, 0, NULL, false);
     }
     if(retval != UA_STATUSCODE_GOOD) {
         UA_ServerConfig_clear(conf);
@@ -1204,7 +1204,7 @@ UA_ServerConfig_setDefaultWithSecureSecurityPolicies(UA_ServerConfig *conf,
     retval = UA_ServerConfig_addAllSecureSecurityPolicies(conf, certificate, privateKey);
 
     if(retval == UA_STATUSCODE_GOOD) {
-        retval = UA_AccessControl_default(conf, false, NULL, 0, NULL);
+        retval = UA_AccessControl_default(conf, false, NULL, 0, NULL, false);
     }
     if(retval != UA_STATUSCODE_GOOD) {
         UA_ServerConfig_clear(conf);
@@ -1570,7 +1570,7 @@ UA_ServerConfig_setDefaultWithFilestore(UA_ServerConfig *conf,
                                                            privateKey, storePath);
 
     if(retval == UA_STATUSCODE_GOOD) {
-        retval = UA_AccessControl_default(conf, true, NULL, 0, NULL);
+        retval = UA_AccessControl_default(conf, true, NULL, 0, NULL, false);
     }
 
     if(retval == UA_STATUSCODE_GOOD) {
